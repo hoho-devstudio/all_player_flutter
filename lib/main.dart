@@ -6,8 +6,11 @@ import 'package:all_player_flutter/screens/player_view.dart';
 void main() {
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    title: '모두의 선수',
-    theme: ThemeData(primarySwatch: Colors.green),
+    title: 'all-player soccer',
+    theme: ThemeData(
+      primaryColor: Color(0xff242e43),
+      primarySwatch: Colors.indigo
+    ),
     home: HomeView(),
     getPages: [
       GetPage(name: "/home", page: () => HomeView()),
