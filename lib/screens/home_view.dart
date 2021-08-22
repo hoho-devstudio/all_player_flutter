@@ -22,7 +22,6 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(
         title: Text('모두의 축구'),
         centerTitle: false,
-
         leading: Container(padding: EdgeInsets.only(left: 10),
           child: IconButton(onPressed: () {
 
@@ -102,6 +101,9 @@ class HomeView extends StatelessWidget {
                             onTap: () {
                               _textEditingController.clear();
                               controller.isSearchVisible.value = false;
+
+                              var hashMap = {'key' : controller.searchData[index]};
+                              Get.toNamed('/player', arguments: hashMap);
                             },
                           );
                         }),
@@ -122,22 +124,6 @@ class HomeView extends StatelessWidget {
                   ),
                 ) : Container()),
               ],
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(left: 60),
-              child: PopupMenuButton<String>(
-                icon: Opacity(opacity: 0.0, child: const Icon(Icons.search)),
-                onSelected: (String value) {
-                  // _controller.text = value;
-                },
-                itemBuilder: (BuildContext context) {
-                  return controller.searchData.map<PopupMenuItem<String>>((String value) {
-                    return new PopupMenuItem(
-                        child: new Text(value), value: value);
-                  }).toList();
-                },
-              ),
             ),
           ],
         ),

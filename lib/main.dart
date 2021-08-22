@@ -11,7 +11,7 @@ void main() {
       primaryColor: Color(0xff242e43),
       primarySwatch: Colors.indigo
     ),
-    home: HomeView(),
+    home: PlayerView(),
     getPages: [
       GetPage(name: "/home", page: () => HomeView()),
       GetPage(name: "/player", page: () => PlayerView())
