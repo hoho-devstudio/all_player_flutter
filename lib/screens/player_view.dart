@@ -1,101 +1,91 @@
+import 'dart:io';
 import 'dart:math';
 
+import 'package:all_player_flutter/dev/InstaProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class PlayerView extends StatelessWidget {
-  const PlayerView({Key? key}) : super(key: key);
+
+  var data = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return InstaProfilePage();
-  }
-
-}
-
-// InstaProfilePage
-class InstaProfilePage extends StatefulWidget {
-  @override
-  _InstaProfilePageState createState() => _InstaProfilePageState();
-}
-
-class _InstaProfilePageState extends State<InstaProfilePage> {
-  double get randHeight => Random().nextInt(100).toDouble();
-
-  List<Widget>? _randomChildren;
-
-  // Children with random heights - You can build your widgets of unknown heights here
-  // I'm just passing the context in case if any widgets built here needs  access to context based data like Theme or MediaQuery
-  List<Widget> _randomHeightWidgets(BuildContext context) {
-    _randomChildren ??= List.generate(3, (index) {
-      final height = randHeight.clamp(
-        50.0,
-        MediaQuery.of(context).size.width, // simply using MediaQuery to demonstrate usage of context
-      );
-      return Container(
-        color: Colors.primaries[index],
-        height: height,
-        child: Text('Random Height Child ${index + 1}'),
-      );
-    });
-
-    return _randomChildren!;
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      // Persistent AppBar that never scrolls
       appBar: AppBar(
-        title: Text('AppBar'),
-        elevation: 0.0,
+        title: Text('dev'),
       ),
       body: DefaultTabController(
         length: 2,
         child: NestedScrollView(
-          // allows you to build a list of elements that would be scrolled away till the body reached the top
           headerSliverBuilder: (context, _) {
             return [
               SliverList(
                 delegate: SliverChildListDelegate(
-                  _randomHeightWidgets(context),
+                  [
+                    Container(
+                      height: 200, color: Colors.lightGreen,
+                    ),
+                  ]
                 ),
               ),
             ];
           },
-          // You tab view goes here
           body: Column(
-            children: <Widget>[
+            children: [
               TabBar(
                 tabs: [
-                  Tab(text: 'A'),
-                  Tab(text: 'B'),
+                  Tab(text: ''),
+                  Tab(text: '')
                 ],
               ),
               Expanded(
                 child: TabBarView(
                   children: [
-                    GridView.count(
-                      padding: EdgeInsets.zero,
-                      crossAxisCount: 3,
-                      children: Colors.primaries.map((color) {
-                        return Container(color: color, height: 150.0);
-                      }).toList(),
+                    Container(
+                      color: Colors.amberAccent,
+                      child: PlayerViewPage(),
                     ),
-                    ListView(
-                      padding: EdgeInsets.zero,
-                      children: Colors.primaries.map((color) {
-                        return Container(color: color, height: 150.0);
-                      }).toList(),
+                    Container(
+                      color: Colors.deepOrangeAccent
                     )
                   ],
-                ),
-              ),
+                )
+              )
             ],
           ),
         ),
       ),
+
     );
   }
+
 }
+
+class PlayerViewPage extends StatefulWidget {
+  const PlayerViewPage({Key? key}) : super(key: key);
+
+  @override
+  _PlayerViewPageState createState() => _PlayerViewPageState();
+}
+
+class _PlayerViewPageState extends State<PlayerViewPage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WebView(
+      initialUrl: 'https://namu.wiki/w/%EC%86%90%ED%9D%A5%EB%AF%BC',
+    );
+  }
+
+}
+

@@ -26,6 +26,8 @@ dependencies:
 
   # 상태 관리
   get: ^4.3.8
+  # 웹뷰
+  webview_flutter: ^2.0.12
 
 
   # The following adds the Cupertino Icons font to your application.
