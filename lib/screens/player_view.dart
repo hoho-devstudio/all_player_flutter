@@ -1,14 +1,14 @@
-import 'dart:io';
-import 'dart:math';
-
-import 'package:all_player_flutter/dev/InstaProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:radar_chart/radar_chart.dart';
 
 class PlayerView extends StatelessWidget {
 
   var data = Get.arguments;
+  int pi = 3;
+  int _length = 6;
+  List<double> values1 = [0.95, 0.85, 0.75, 0.9, 0.85, 0.95];
+  List<double> values2 = [0.5, 0.3, 0.85, 0.5, 0.3, 0.85];
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,36 @@ class PlayerView extends StatelessWidget {
                 delegate: SliverChildListDelegate(
                   [
                     Container(
-                      height: 200, color: Colors.lightGreen,
+                      height: 250, color: Colors.white,
+                      child: Container(
+                        color: Colors.grey.shade200,
+                        child: Center(
+                          child: RadarChart(
+                            length: _length,
+                            radius: 100,
+                            initialAngle: 0.52,
+                            backgroundColor: Colors.white,
+                            borderStroke: 1,
+                            borderColor: Colors.indigo.withOpacity(0.4),
+                            radialStroke: 0.3,
+                            radialColor: Colors.grey,
+                            radars: [
+                              RadarTile(
+                                values: values1,
+                                borderStroke: 2,
+                                borderColor: Colors.yellow,
+                                backgroundColor: Colors.yellow.withOpacity(0.6),
+                              ),
+                              // RadarTile(
+                              //   values: values2,
+                              //   borderStroke: 2,
+                              //   borderColor: Colors.blue,
+                              //   backgroundColor: Colors.blue.withOpacity(0.4),
+                              // ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ]
                 ),
@@ -46,7 +75,6 @@ class PlayerView extends StatelessWidget {
                   children: [
                     Container(
                       color: Colors.amberAccent,
-                      child: PlayerViewPage(),
                     ),
                     Container(
                       color: Colors.deepOrangeAccent
@@ -64,28 +92,4 @@ class PlayerView extends StatelessWidget {
 
 }
 
-class PlayerViewPage extends StatefulWidget {
-  const PlayerViewPage({Key? key}) : super(key: key);
-
-  @override
-  _PlayerViewPageState createState() => _PlayerViewPageState();
-}
-
-class _PlayerViewPageState extends State<PlayerViewPage> {
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return WebView(
-      initialUrl: 'https://namu.wiki/w/%EC%86%90%ED%9D%A5%EB%AF%BC',
-    );
-  }
-
-}
 

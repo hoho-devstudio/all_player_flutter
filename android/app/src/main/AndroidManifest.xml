@@ -2,7 +2,6 @@
     package="com.hoho.devstudio.allplayer.all_player_flutter">
    <application
         android:label="all_player_flutter"
-        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name="com.hoho.devstudio.allplayer.MainActivity"
