@@ -12,6 +12,7 @@ void main() {
       primarySwatch: Colors.indigo
     ),
     home: HomeView(),
+    // home: PlayerView(),
     getPages: [
       GetPage(name: "/home", page: () => HomeView()),
       GetPage(name: "/player", page: () => PlayerView(), transition: Transition.cupertino)
