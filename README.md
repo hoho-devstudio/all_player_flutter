@@ -1,6 +1,7 @@
 # all_player_flutter
 
-A new Flutter project.
+모두의 축구
+- 축구선수 능력치 정보 검색 서비스
 
 ## Getting Started
 
